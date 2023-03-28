@@ -1,29 +1,12 @@
-# Django and Docker example
-
-This is my example Django setup using Docker for local development.
-
-The Django files (in `myproject/`) are a very minimal initial project and app
-simply to indicate that things are working. Replace it with your own more
-useful code!
-
-This README should:
-
-1. Guide you through getting the Docker container up and running,
-2. provide a little explanation as to how it's configured, and
-3. provide some basic commands on how to work with it.
-
-It might also give the impression I understand 100% how everything works; this is an illusion but, nevertheless, things do seem to work.
-
-
 ## 1. Build and run the container
 
 1. Install Docker, e.g. [Docker for Mac](https://docs.docker.com/docker-for-mac/install/).
 
 2. Download this repository.
 
-3. Optional: In `docker-compose.yml` change the two `container_name` values from `myproject_db` and `myproject_web` to something that makes sense for your project. e.g. `weblog_db` and `weblog_web` if your project is called weblog.
+3. Optional: In `docker-compose.yml` change the two `container_name` values from `myproject_db_1` and `myproject_api` to something that makes sense for your project. e.g. `weblog_db` and `weblog_web` if your project is called weblog.
 
-4. If you did that you'll also need to change `myproject_web` in the two scripts within the `/scripts/` directory.
+4. If you did that you'll also need to change `myproject_api` in the two scripts within the `/scripts/` directory.
 
 5. Create a `.env` file at the same level as this README, containing the following. This will be used by Docker.
 
@@ -38,7 +21,7 @@ It might also give the impression I understand 100% how everything works; this i
     DJANGO_SETTINGS_MODULE=myproject.myproject.settings.development
     ```
 
-    **Note:** If you changed `myproject_db` in the previous step, you should change the `POSTGRES_HOST` value to match it in the `.env` file. You can change the other postgres settings if you like, but it's not required.
+    **Note:** If you changed `myproject_db_1` in the previous step, you should change the `POSTGRES_HOST` value to match it in the `.env` file. You can change the other postgres settings if you like, but it's not required.
 
 6. On the command line, within this directory, do this to build the image and
    start the container:
@@ -51,6 +34,34 @@ It might also give the impression I understand 100% how everything works; this i
 
 8. Open http://0.0.0.0:8000 in your browser.
 
+
+## 2. Ongoing work
+
+Every time you come to work on the site:
+
+    docker-compose up
+
+Alternatively you can do the following to run it in "detached" mode, in the background, but I like to see the logs during development:
+
+    docker-compose up -d
+
+Use Ctrl-C to stop it (or, in detached mode, `docker-compose stop`). You can see what's running in Docker Desktop.
+
+To access the shell in the web container:
+
+    docker exec -it myproject_api sh
+
+You can then run Django management commands from there, making sure to do it within the pipenv virtual environment:
+
+    pipenv run ./manage.py help
+
+Because logging into the Docker container and *then* running `./manage.py` is a bit of a pain, we have a shortcut script you can run from your own computer instead (not within the Docker container):
+
+    ./scripts/manage.sh help
+
+So, to create your Django project's superuser:
+
+    ./scripts/manage.sh createsuperuser
 
 ### Run tests
 

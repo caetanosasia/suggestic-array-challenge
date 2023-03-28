@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   db:
-    container_name: myproject_db
+    container_name: myproject_db_1
     env_file:
       - .env
     image: postgres:alpine
@@ -18,7 +18,7 @@ services:
       pipenv run python manage.py migrate &&
       pipenv run python manage.py runserver 0.0.0.0:8000
       "
-    container_name: myproject_web
+    container_name: myproject_api
     depends_on:
       - db
     env_file:
