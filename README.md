@@ -63,11 +63,11 @@ If you want see more commands:
 
 ### Run tests
 
-Inside docker shell:
+Inside docker shell execute:
 
     pipenv run ./manage.py test
 
-Curl from test endpoint:
+Endpoint curl:
 
     curl --location 'http://0.0.0.0:8000/flattens-array/' \
     --header 'Content-Type: application/json' \
