@@ -41,19 +41,9 @@ Every time you come to work on the site:
 
     docker-compose up
 
-Alternatively you can do the following to run it in "detached" mode, in the background, but I like to see the logs during development:
-
-    docker-compose up -d
-
-Use Ctrl-C to stop it (or, in detached mode, `docker-compose stop`). You can see what's running in Docker Desktop.
-
 To access the shell in the web container:
 
     docker exec -it myproject_api sh
-
-You can then run Django management commands from there, making sure to do it within the pipenv virtual environment:
-
-    pipenv run ./manage.py help
 
 To create migrations: 
 
@@ -67,8 +57,18 @@ So, to create your Django project's superuser:
 
     pipenv run ./manage.py createsuperuser
 
+If you want see more commands:
+
+    pipenv run ./manage.py help
+
 ### Run tests
 
-Inside docker bash:
+Inside docker shell:
 
     pipenv run ./manage.py test
+
+Curl from test endpoint:
+
+    curl --location 'http://0.0.0.0:8000/normalize-array/' \
+    --header 'Content-Type: application/json' \
+    --data '{"input": [1, 2, [3, 4, [5, 6], 7], 8, 10]}'
