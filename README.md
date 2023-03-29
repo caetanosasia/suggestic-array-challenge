@@ -55,14 +55,20 @@ You can then run Django management commands from there, making sure to do it wit
 
     pipenv run ./manage.py help
 
-Because logging into the Docker container and *then* running `./manage.py` is a bit of a pain, we have a shortcut script you can run from your own computer instead (not within the Docker container):
+To create migrations: 
 
-    ./scripts/manage.sh help
+    pipenv run ./manage.py makemigrations
+
+To migrate:
+
+    pipenv run ./manage.py migrate
 
 So, to create your Django project's superuser:
 
-    ./scripts/manage.sh createsuperuser
+    pipenv run ./manage.py createsuperuser
 
 ### Run tests
 
-    ./scripts/run-tests.sh
+Inside docker bash:
+
+    pipenv run ./manage.py test

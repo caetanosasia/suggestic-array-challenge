@@ -16,5 +16,10 @@ class Array(models.Model):
         lst_int = [int(i) for i in lst]
         return lst_int
     def __str__(self):
-        return self
+        return self.input
     
+class ArrayToReturn(models.Model):
+    output = ArrayField(models.IntegerField(), size=100)
+
+    def __str__(self):
+        return self.output
