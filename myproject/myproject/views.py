@@ -9,7 +9,7 @@ from .serializers import ArraySerializer,ArrayToReturnSerializer
 from .models import Array
 
 """
-curl --location 'http://0.0.0.0:8000/normalize-array/' \
+curl --location 'http://0.0.0.0:8000/flattens-array/' \
 --header 'Content-Type: application/json' \
 --data '{
     "input": [1, 2, [3, 4, [5, 6], 7], 8, 10]
@@ -17,12 +17,13 @@ curl --location 'http://0.0.0.0:8000/normalize-array/' \
 """
 
 @api_view(['POST'])
-def normalize_array(request):
+def flattens_array(request):
     if request.method == "POST":
         data = JSONParser().parse(request)
         serializer = ArraySerializer(data=data)
         if serializer.is_valid():
-            answ = (Array.destructuring(data.get('input')))
+            answ = (Array.flattens2(data.get('input'))) #option 2
+            #answ = (Array.flattens(data.get('input'))) #option 1
             answ = json.loads('{ "output": '+str(answ)+' }')
             answ = ArrayToReturnSerializer(data=answ)
             if(answ.is_valid()):

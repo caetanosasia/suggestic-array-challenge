@@ -69,6 +69,9 @@ Inside docker shell:
 
 Curl from test endpoint:
 
-    curl --location 'http://0.0.0.0:8000/normalize-array/' \
+    curl --location 'http://0.0.0.0:8000/flattens-array/' \
     --header 'Content-Type: application/json' \
     --data '{"input": [1, 2, [3, 4, [5, 6], 7], 8, 10]}'
+
+Extra: 
+    in views.py you can choose which solution you want to use (lines 25 and 26)
