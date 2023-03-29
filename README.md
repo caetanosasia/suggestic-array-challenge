@@ -16,7 +16,7 @@
     POSTGRES_USER=mydatabaseuser
     POSTGRES_PASSWORD=mypassword
     POSTGRES_DB=mydatabase
-    POSTGRES_HOST=myproject_db
+    POSTGRES_HOST=myproject_db_1
 
     DJANGO_SETTINGS_MODULE=myproject.myproject.settings.development
     ```
